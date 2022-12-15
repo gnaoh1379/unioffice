@@ -1,0 +1,27 @@
+package spreadsheet_test
+
+import (
+	"testing"
+
+	"github.com/gnaoh1379/unioffice/spreadsheet"
+)
+
+func BenchmarkAddRow(b *testing.B) {
+	ss := spreadsheet.New()
+	defer ss.Close()
+	sheet := ss.AddSheet()
+	for r := 0; r < b.N; r++ {
+		sheet.AddRow()
+	}
+}
+
+func BenchmarkAddCell(b *testing.B) {
+	ss := spreadsheet.New()
+	defer ss.Close()
+	sheet := ss.AddSheet()
+	row := sheet.AddRow()
+
+	for c := 0; c < b.N; c++ {
+		row.AddCell()
+	}
+}
